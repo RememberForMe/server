@@ -25,10 +25,4 @@ export class Roles extends Model {
     @AllowNull(false)
     @Unique(true)
     name: string;
-
-    @CreatedAt
-    createdAt: Date;
-
-    @UpdatedAt
-    updatedAt: Date;
 }
