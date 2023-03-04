@@ -5,9 +5,12 @@ import {
     Model,
     DataType,
     Unique,
-    AllowNull
+    AllowNull,
+    HasOne
 } from 'sequelize-typescript'
+import { Profiles } from './profile.model';
 
+@Table
 export class Accounts extends Model {
     @PrimaryKey
     @Column({
@@ -40,4 +43,7 @@ export class Accounts extends Model {
         defaultValue: true
     })
     isActived: boolean;
+
+    @HasOne(() => Profiles)
+    profile: Profiles;
 }
