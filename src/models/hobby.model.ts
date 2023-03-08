@@ -1,31 +1,32 @@
 import {
     Table,
-    Model,
-    Column,
-    DataType,
     PrimaryKey,
+    Column,
+    Model,
+    DataType,
     AllowNull,
     Unique,
-    HasMany
+    BelongsToMany
 } from 'sequelize-typescript'
 import { Accounts } from './account.model';
+import { AccountHobbys } from './AccountHobby.model';
 
 @Table
-export class Roles extends Model {
+export class Hobbys extends Model {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
-        defaultValue: DataType.UUIDV4,
+        defaultValue: DataType.UUIDV4
     })
     id: string;
 
     @Column({
-        type: DataType.STRING(20)
+        type: DataType.STRING
     })
     @AllowNull(false)
     @Unique(true)
     name: string;
 
-    @HasMany(() => Accounts)
+    @BelongsToMany(() => Accounts, () => AccountHobbys)
     accounts: Accounts[];
 }

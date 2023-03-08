@@ -6,9 +6,15 @@ import {
     DataType,
     Unique,
     AllowNull,
-    HasOne
+    HasOne,
+    BelongsToMany,
+    BelongsTo,
+    ForeignKey
 } from 'sequelize-typescript'
+import { AccountHobbys } from './AccountHobby.model';
+import { Hobbys } from './hobby.model';
 import { Profiles } from './profile.model';
+import { Roles } from './role.model';
 
 @Table
 export class Accounts extends Model {
@@ -46,4 +52,14 @@ export class Accounts extends Model {
 
     @HasOne(() => Profiles)
     profile: Profiles;
+
+    @BelongsToMany(() => Hobbys, () => AccountHobbys)
+    hobbys: Hobbys[];
+
+    @ForeignKey(() => Roles)
+    @Column
+    roleId: string; 
+
+    @BelongsTo(() => Roles)
+    role: Roles;
 }

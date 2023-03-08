@@ -48,5 +48,5 @@ export class Profiles extends Model {
     accountId: string;
 
     @BelongsTo(() => Accounts)
-    account: Accounts
+    account: Accounts;
 }
