@@ -12,14 +12,14 @@ import {
     ForeignKey
 } from 'sequelize-typescript';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { AccountHobby } from 'src/api/account_hobby/entities/account_hobby.entity';
-import { Hobbys } from 'src/api/hobbys/entities/hobby.entity';
-import { Profiles } from 'src/api/profiles/entities/profile.entity';
-import { Roles } from 'src/api/roles/entities/role.entity';
+import AccountHobby from 'src/api/accountHobby/entities/accountHobby.entity';
+import Hobbys from 'src/api/hobbys/entities/hobby.entity';
+import Profiles from 'src/api/profiles/entities/profile.entity';
+import Roles from 'src/api/roles/entities/role.entity';
 
 @ObjectType()
 @Table
-export class Accounts extends Model {
+export default class Accounts extends Model {
     @Field(() => ID)
     @PrimaryKey
     @Column({
@@ -29,25 +29,25 @@ export class Accounts extends Model {
     id: string;
 
     @Field({ nullable: true })
+    @AllowNull(true)
     @Column({
         type: DataType.TEXT
     })
-    @AllowNull(true)
     email: string;
 
     @Field({ nullable: false })
+    @Unique(true)
+    @AllowNull(false)
     @Column({
         type: DataType.STRING(20)
     })
-    @Unique(true)
-    @AllowNull(false)
     username: string;
 
     @Field({ nullable: false })
+    @AllowNull(false)
     @Column({
         type: DataType.STRING(10)
     })
-    @AllowNull(false)
     password: string;
 
     @Field({ defaultValue: true })
@@ -67,8 +67,8 @@ export class Accounts extends Model {
 
     @Field({ nullable: false })
     @ForeignKey(() => Roles)
-    @Column
     @AllowNull(false)
+    @Column
     roleId: string; 
 
     @Field(() => Roles)

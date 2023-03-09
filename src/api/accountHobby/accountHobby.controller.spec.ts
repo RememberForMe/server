@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AccountHobbyController } from './account_hobby.controller';
-import { AccountHobbyService } from './account_hobby.service';
+import { AccountHobbyController } from './accountHobby.controller';
+import { AccountHobbyService } from './accountHobby.service';
 
 describe('AccountHobbyController', () => {
   let controller: AccountHobbyController;

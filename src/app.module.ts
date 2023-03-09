@@ -9,13 +9,14 @@ import { RolesModule } from './api/roles/roles.module';
 import { AccountsModule } from './api/accounts/accounts.module';
 import { ProfilesModule } from './api/profiles/profiles.module';
 import { HobbysModule } from './api/hobbys/hobbys.module';
-import { AccountHobbyModule } from './api/account_hobby/account_hobby.module';
+import { AccountHobbyModule } from './api/accountHobby/accountHobby.module';
 
 @Module({
     imports: [
         SequelizeModule.forRoot(SequelizeConfig),
         GraphQLModule.forRoot<ApolloDriverConfig>({
-            driver: ApolloDriver
+            driver: ApolloDriver,
+            autoSchemaFile: 'schema.gql'
         }),
         RolesModule,
         AccountsModule,

@@ -9,11 +9,11 @@ import {
     BelongsTo
 } from 'sequelize-typescript';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Accounts } from 'src/api/accounts/entities/account.entity';
+import Accounts from 'src/api/accounts/entities/account.entity';
 
 @ObjectType()
 @Table
-export class Profiles extends Model {
+export default class Profiles extends Model {
     @Field(() => ID)
     @PrimaryKey
     @Column({
@@ -23,37 +23,37 @@ export class Profiles extends Model {
     id: string;
 
     @Field()
+    @AllowNull(true)
     @Column({
         type: DataType.STRING(20)
     })
-    @AllowNull(true)
     firstName?: string;
 
     @Field({ nullable: true })
+    @AllowNull(true)
     @Column({
         type: DataType.STRING(10)
     })
-    @AllowNull(true)
     lastName?: string;
 
     @Field({ nullable: true })
+    @AllowNull(true)
     @Column({
         type: DataType.TEXT
     })
-    @AllowNull(true)
     address?: string;
 
     @Field({ nullable: true })
+    @AllowNull(true)
     @Column({
         type: DataType.DATEONLY
     })
-    @AllowNull(true)
     birthday?: string;
 
     @Field({ nullable: false })
     @ForeignKey(() => Accounts)
-    @Column
     @AllowNull(false)
+    @Column
     accountId: string;
 
     @Field(() => Accounts)

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AccountHobbyService } from './account_hobby.service';
-import { CreateAccountHobbyDto } from './dto/create-account_hobby.dto';
-import { UpdateAccountHobbyDto } from './dto/update-account_hobby.dto';
+import { AccountHobbyService } from './accountHobby.service';
+import { CreateAccountHobbyDto } from './dto/create-accountHobby.dto';
+import { UpdateAccountHobbyDto } from './dto/update-accountHobby.dto';
 
 @Controller('account-hobby')
 export class AccountHobbyController {

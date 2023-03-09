@@ -1,0 +1,45 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Hobbys {
+  id: ID!
+  name: String!
+  accounts: [Accounts!]!
+}
+
+type Profiles {
+  id: ID!
+  firstName: String!
+  lastName: String
+  address: String
+  birthday: String
+  accountId: String!
+  account: Accounts!
+}
+
+type Accounts {
+  id: ID!
+  email: String
+  username: String!
+  password: String!
+  isActived: Boolean!
+  profile: Profiles!
+  hobbys: [Hobbys!]!
+  roleId: String!
+  role: Roles!
+}
+
+type Roles {
+  id: ID!
+  name: String!
+  accounts: [Accounts!]!
+}
+
+type Query {
+  helloRole: String!
+  helloAccount: String!
+  helloProfile: String!
+  helloHobby: String!
+  helloAccountHobby: String!
+}
