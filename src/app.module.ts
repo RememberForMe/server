@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { SequelizeConfig } from './config/sequelize.config';
-import { RolesModule } from './modules/roles/role.module';
-import { AccountsModule } from './modules/accounts/account.module';
-import { ProfilesModule } from './modules/profiles/profile.module';
-import { HobbysModule } from './modules/hobbys/hobby.module';
+import { RolesModule } from './api/roles/roles.module';
+import { AccountsModule } from './api/accounts/accounts.module';
+import { ProfilesModule } from './api/profiles/profiles.module';
+import { HobbysModule } from './api/hobbys/hobbys.module';
+import { AccountHobbyModule } from './api/account_hobby/account_hobby.module';
 
 @Module({
     imports: [
@@ -14,7 +15,8 @@ import { HobbysModule } from './modules/hobbys/hobby.module';
         RolesModule,
         AccountsModule,
         ProfilesModule,
-        HobbysModule
+        HobbysModule,
+        AccountHobbyModule,
     ],
     controllers: [AppController],
     providers: [AppService],

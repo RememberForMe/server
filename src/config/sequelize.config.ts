@@ -9,5 +9,5 @@ export const SequelizeConfig: SequelizeOptions = {
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
-    models: [__dirname + '/../models/*.entity.{ts,js}']
+    models: [__dirname + '/../api/**/*.entity.{ts,js}']
 }
