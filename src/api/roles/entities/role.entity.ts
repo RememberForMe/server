@@ -7,11 +7,14 @@ import {
     AllowNull,
     Unique,
     HasMany
-} from 'sequelize-typescript'
+} from 'sequelize-typescript';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Accounts } from 'src/api/accounts/entities/account.entity';
 
+@ObjectType()
 @Table
 export class Roles extends Model {
+    @Field(() => ID)
     @PrimaryKey
     @Column({
         type: DataType.UUID,
@@ -19,6 +22,7 @@ export class Roles extends Model {
     })
     id: string;
 
+    @Field()
     @Column({
         type: DataType.STRING(20)
     })
@@ -26,6 +30,7 @@ export class Roles extends Model {
     @Unique(true)
     name: string;
 
+    @Field(() => [Accounts])
     @HasMany(() => Accounts)
     accounts: Accounts[];
 }
