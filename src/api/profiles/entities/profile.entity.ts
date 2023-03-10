@@ -12,7 +12,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import Accounts from 'src/api/accounts/entities/account.entity';
 
 @ObjectType()
-@Table
+@Table({ tableName: 'Profiles', timestamps: false })
 export default class Profiles extends Model {
     @Field(() => ID)
     @PrimaryKey

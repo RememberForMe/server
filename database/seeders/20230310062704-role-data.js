@@ -1,5 +1,6 @@
 'use strict';
-const { v4 } = require('uuid')
+
+const { v4 } = require('uuid'); 
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -13,22 +14,10 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
         */
-        const hobbys = [
-            'music', 
-            'photography', 
-            'movies', 
-            'technology', 
-            'traveling', 
-            'running',
-            'fashion',
-            'sneaker',
-            'sport shoe',
-            'jewelry'
-        ]
-
-        await queryInterface.bulkInsert('Hobbys', hobbys.map(hobby => ({
+        const roles = ['admin', 'user', 'provider']
+        await queryInterface.bulkInsert('Roles', roles.map(role => ({
             id: v4(),
-            name: hobby
+            name: role 
         })))
     },
 
@@ -39,6 +28,6 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        await queryInterface.bulkDelete('Hobbys', null, {})
+        await queryInterface.bulkDelete('Roles', null, {})
     }
 };

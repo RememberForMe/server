@@ -9,16 +9,19 @@ import {
     HasOne,
     BelongsToMany,
     BelongsTo,
-    ForeignKey
+    ForeignKey,
+    BeforeCreate,
 } from 'sequelize-typescript';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import AccountHobby from 'src/api/accountHobby/entities/accountHobby.entity';
 import Hobbys from 'src/api/hobbys/entities/hobby.entity';
 import Profiles from 'src/api/profiles/entities/profile.entity';
 import Roles from 'src/api/roles/entities/role.entity';
+import { createCipheriv, randomBytes, scrypt } from 'crypto';
+import { promisify } from 'util';
 
 @ObjectType()
-@Table
+@Table({ tableName: 'Accounts', timestamps: false })
 export default class Accounts extends Model {
     @Field(() => ID)
     @PrimaryKey
@@ -46,7 +49,7 @@ export default class Accounts extends Model {
     @Field({ nullable: false })
     @AllowNull(false)
     @Column({
-        type: DataType.STRING(10)
+        type: DataType.TEXT
     })
     password: string;
 
@@ -74,4 +77,12 @@ export default class Accounts extends Model {
     @Field(() => Roles)
     @BelongsTo(() => Roles)
     role: Roles;
+
+    @BeforeCreate
+    static async hashPassword(instance: Accounts) {
+        const iv = randomBytes(16)
+        const key = (await promisify(scrypt)('remember', 'salt', 32)) as Buffer
+        const cipher = createCipheriv('aes-256-ctr', key, iv)
+        instance.password = cipher.update(instance.password, 'utf-8', 'hex') + cipher.final('hex')
+    }
 }

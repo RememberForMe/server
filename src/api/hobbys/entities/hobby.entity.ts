@@ -13,7 +13,7 @@ import Accounts from 'src/api/accounts/entities/account.entity';
 import AccountHobby from 'src/api/accountHobby/entities/accountHobby.entity';
 
 @ObjectType()
-@Table
+@Table({ tableName: 'Hobbys', timestamps: false })
 export default class Hobbys extends Model {
     @Field(() => ID)
     @PrimaryKey

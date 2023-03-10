@@ -36,10 +36,25 @@ type Roles {
   accounts: [Accounts!]!
 }
 
+type Auth {
+  username: String!
+  token: String
+}
+
 type Query {
   helloRole: String!
   helloAccount: String!
   helloProfile: String!
   helloHobby: String!
   helloAccountHobby: String!
+}
+
+type Mutation {
+  register(input: AuthInput!): Auth!
+}
+
+input AuthInput {
+  username: String!
+  password: String!
+  role: String
 }

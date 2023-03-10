@@ -10,6 +10,7 @@ import { AccountsModule } from './api/accounts/accounts.module';
 import { ProfilesModule } from './api/profiles/profiles.module';
 import { HobbysModule } from './api/hobbys/hobbys.module';
 import { AccountHobbyModule } from './api/accountHobby/accountHobby.module';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { AccountHobbyModule } from './api/accountHobby/accountHobby.module';
         ProfilesModule,
         HobbysModule,
         AccountHobbyModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],

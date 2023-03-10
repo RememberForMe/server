@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { CreateAccountInput } from './dto/create-account.input';
+import Accounts from './entities/account.entity';
 
 @Injectable()
 export class AccountsService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
-  }
+    constructor(
+        @InjectModel(Accounts)
+        private readonly accountModel: typeof Accounts,
+    ) {}
 
-  findAll() {
-    return `This action returns all accounts`;
-  }
+    async findAll(): Promise<Accounts[]> {
+        return this.accountModel.findAll()
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
-  }
+    async createNewRecord(data: CreateAccountInput) {
+        let user = await this.accountModel.findOne({
+            where: { username: data.username }
+        })
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
-  }
+        if (user) {
+            throw new HttpException('the user already exists', HttpStatus.BAD_REQUEST)
+        }
 
-  remove(id: number) {
-    return `This action removes a #${id} account`;
-  }
+        user = await this.accountModel.create({
+            username: data.username,
+            password: data.password,
+            roleId: data.roleId
+        })
+        
+        return user
+    }
 }

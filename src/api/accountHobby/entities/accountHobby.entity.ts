@@ -9,7 +9,7 @@ import Accounts from 'src/api/accounts/entities/account.entity';
 import Hobbys from 'src/api/hobbys/entities/hobby.entity';
 
 @ObjectType()
-@Table
+@Table({ tableName: 'AccountHobby', timestamps: false })
 export default class AccountHobby extends Model {
     @Field()
     @ForeignKey(() => Accounts)
