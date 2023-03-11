@@ -14,6 +14,10 @@ export class AccountsService {
         return this.accountModel.findAll()
     }
 
+    async findOneById(id: string) {
+        return await this.accountModel.findByPk(id)
+    } 
+
     async findOneByUsername(username: string) {
         return await this.accountModel.findOne({
             where: { username }

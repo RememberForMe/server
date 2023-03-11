@@ -10,7 +10,7 @@ type Hobbys {
 
 type Profiles {
   id: ID!
-  firstName: String!
+  firstName: String
   lastName: String
   address: String
   birthday: String
@@ -24,7 +24,7 @@ type Accounts {
   username: String!
   password: String!
   isActived: Boolean!
-  profile: Profiles!
+  profile: Profiles
   hobbys: [Hobbys!]!
   roleId: String!
   role: Roles!
@@ -43,8 +43,8 @@ type LoginResponseDTO {
 
 type Query {
   helloRole: String!
-  helloAccount: String!
-  helloProfile: String!
+  account(id: String!): Accounts
+  accounts: [Accounts!]!
   hobbys: [Hobbys!]!
   helloAccountHobby: String!
 }

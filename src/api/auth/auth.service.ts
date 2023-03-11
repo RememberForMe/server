@@ -44,7 +44,7 @@ export class AuthService {
             throw new HttpException('Account already exists', HttpStatus.FORBIDDEN)
         }
 
-        const roleAdmin = await this.rolesService.findByName(input.role || 'user')
+        const roleAdmin = await this.rolesService.findOneByName(input.role || 'user')
 
         return this.accountsService.createNewRecord({
             username: input.username,

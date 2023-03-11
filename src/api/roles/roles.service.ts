@@ -9,7 +9,17 @@ export class RolesService {
         private readonly roleModel: typeof Roles
     ) {}
 
-    async findByName(name: string) {
+    async findOneById(id: string) {
+        if (!id) {
+            throw new HttpException('Invalid input', HttpStatus.BAD_GATEWAY)
+        }
+
+        const role = await this.roleModel.findByPk(id)
+
+        return role
+    }
+
+    async findOneByName(name: string) {
         if (!name) {
             throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST)
         }
