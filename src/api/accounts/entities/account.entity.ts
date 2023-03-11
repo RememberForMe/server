@@ -13,12 +13,11 @@ import {
     BeforeCreate,
 } from 'sequelize-typescript';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import * as bcrypt from 'bcrypt';
 import AccountHobby from 'src/api/accountHobby/entities/accountHobby.entity';
 import Hobbys from 'src/api/hobbys/entities/hobby.entity';
 import Profiles from 'src/api/profiles/entities/profile.entity';
 import Roles from 'src/api/roles/entities/role.entity';
-import { createCipheriv, randomBytes, scrypt } from 'crypto';
-import { promisify } from 'util';
 
 @ObjectType()
 @Table({ tableName: 'Accounts', timestamps: false })
@@ -38,7 +37,7 @@ export default class Accounts extends Model {
     })
     email: string;
 
-    @Field({ nullable: false })
+    @Field()
     @Unique(true)
     @AllowNull(false)
     @Column({
@@ -46,7 +45,7 @@ export default class Accounts extends Model {
     })
     username: string;
 
-    @Field({ nullable: false })
+    @Field()
     @AllowNull(false)
     @Column({
         type: DataType.TEXT
@@ -68,7 +67,7 @@ export default class Accounts extends Model {
     @BelongsToMany(() => Hobbys, () => AccountHobby)
     hobbys: Hobbys[];
 
-    @Field({ nullable: false })
+    @Field()
     @ForeignKey(() => Roles)
     @AllowNull(false)
     @Column
@@ -80,9 +79,9 @@ export default class Accounts extends Model {
 
     @BeforeCreate
     static async hashPassword(instance: Accounts) {
-        const iv = randomBytes(16)
-        const key = (await promisify(scrypt)('remember', 'salt', 32)) as Buffer
-        const cipher = createCipheriv('aes-256-ctr', key, iv)
-        instance.password = cipher.update(instance.password, 'utf-8', 'hex') + cipher.final('hex')
+        const saltOrRounds: number = 10;
+        const salt = await bcrypt.genSalt(saltOrRounds)
+        const hash = await bcrypt.hash(instance.password, salt)
+        instance.password = hash
     }
 }

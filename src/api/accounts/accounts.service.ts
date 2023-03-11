@@ -14,21 +14,25 @@ export class AccountsService {
         return this.accountModel.findAll()
     }
 
-    async createNewRecord(data: CreateAccountInput) {
-        let user = await this.accountModel.findOne({
-            where: { username: data.username }
+    async findOneByUsername(username: string) {
+        return await this.accountModel.findOne({
+            where: { username }
         })
+    }
 
-        if (user) {
+    async createNewRecord(data: CreateAccountInput) {
+        let account = await this.findOneByUsername(data.username)
+
+        if (account) {
             throw new HttpException('the user already exists', HttpStatus.BAD_REQUEST)
         }
 
-        user = await this.accountModel.create({
+        account = await this.accountModel.create({
             username: data.username,
             password: data.password,
             roleId: data.roleId
         })
         
-        return user
+        return account 
     }
 }

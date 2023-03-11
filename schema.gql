@@ -36,9 +36,9 @@ type Roles {
   accounts: [Accounts!]!
 }
 
-type Auth {
-  username: String!
-  token: String
+type LoginResponseDTO {
+  access_token: String!
+  account: Accounts!
 }
 
 type Query {
@@ -50,7 +50,8 @@ type Query {
 }
 
 type Mutation {
-  register(input: AuthInput!): Auth!
+  login(loginInput: AuthInput!): LoginResponseDTO!
+  register(registerInput: AuthInput!): Accounts!
 }
 
 input AuthInput {

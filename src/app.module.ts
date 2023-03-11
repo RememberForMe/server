@@ -17,7 +17,8 @@ import { AuthModule } from './api/auth/auth.module';
         SequelizeModule.forRoot(SequelizeConfig),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
-            autoSchemaFile: 'schema.gql'
+            autoSchemaFile: 'schema.gql',
+            context: req => req
         }),
         RolesModule,
         AccountsModule,

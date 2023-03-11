@@ -4,7 +4,7 @@ import Accounts from './entities/account.entity';
 @Resolver(() => Accounts)
 export class AccountsResolver {
     @Query(() => String)
-    helloAccount(): string {
-        return 'account'
+    helloAccount() {
+        return 'hello'
     }
 }
