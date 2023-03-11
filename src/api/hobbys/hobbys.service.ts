@@ -1,26 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHobbyDto } from './dto/create-hobby.dto';
-import { UpdateHobbyDto } from './dto/update-hobby.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import Hobbys from './entities/hobby.entity';
 
 @Injectable()
 export class HobbysService {
-  create(createHobbyDto: CreateHobbyDto) {
-    return 'This action adds a new hobby';
-  }
+    constructor(
+        @InjectModel(Hobbys)
+        private readonly hobbyModel: typeof Hobbys
+    ) {}
 
-  findAll() {
-    return `This action returns all hobbys`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} hobby`;
-  }
-
-  update(id: number, updateHobbyDto: UpdateHobbyDto) {
-    return `This action updates a #${id} hobby`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} hobby`;
-  }
+    async findAll(): Promise<Hobbys[]> {
+        return this.hobbyModel.findAll()
+    }
 }
