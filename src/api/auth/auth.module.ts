@@ -6,8 +6,8 @@ import { RolesModule } from '../roles/roles.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfigs } from 'src/config/jwt.config';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './strategys/local.strategy';
-import { JwtStrategy } from './strategys/jwt.strategy';
+import { LocalStrategy } from 'src/strategys/local.strategy';
+import { JwtStrategy } from 'src/strategys/jwt.strategy';
 
 @Module({
     imports: [

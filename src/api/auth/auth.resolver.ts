@@ -4,8 +4,8 @@ import { AuthInput } from './dto/auth.input';
 import Auth from './entities/auth.object';
 import { LoginResponseDTO } from './dto/login-response.dto';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from './guards/gql-auth.guard';
 import Accounts from '../accounts/entities/account.entity';
+import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
 
 @Resolver(() => Auth)
 export class AuthResolver {
