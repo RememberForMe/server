@@ -11,6 +11,7 @@ import { ProfilesModule } from './api/profiles/profiles.module';
 import { HobbysModule } from './api/hobbys/hobbys.module';
 import { AccountHobbyModule } from './api/accountHobby/accountHobby.module';
 import { AuthModule } from './api/auth/auth.module';
+import { GendersModule } from './api/genders/genders.module';
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './api/auth/auth.module';
         HobbysModule,
         AccountHobbyModule,
         AuthModule,
+        GendersModule,
     ],
     controllers: [AppController],
     providers: [AppService],
