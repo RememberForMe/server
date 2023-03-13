@@ -1,9 +1,10 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Table, Column, Unique, AllowNull, PrimaryKey, DataType } from 'sequelize-typescript';
+import { Table, Column, Unique, AllowNull, PrimaryKey, DataType, Model, HasMany } from 'sequelize-typescript';
+import Profiles from 'src/api/profiles/entities/profile.entity';
 
 @ObjectType()
 @Table({ tableName: 'Genders', timestamps: false })
-export default class Gender {
+export default class Genders extends Model {
   @Field(() => ID)
   @PrimaryKey
   @Column({
@@ -19,4 +20,8 @@ export default class Gender {
     type: DataType.STRING(10)
   })
   name: string;
+
+  @Field(() => Profiles)
+  @HasMany(() => Profiles)
+  profiles: Profiles[]
 }

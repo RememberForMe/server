@@ -1,26 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGenderInput } from './dto/create-gender.input';
-import { UpdateGenderInput } from './dto/update-gender.input';
+import { InjectModel } from '@nestjs/sequelize';
+import Genders from './entities/gender.entity';
 
 @Injectable()
 export class GendersService {
-  create(createGenderInput: CreateGenderInput) {
-    return 'This action adds a new gender';
+  constructor(
+    @InjectModel(Genders)
+    private readonly genderModel: typeof Genders
+  ) { }
+
+  async findOneById(id: string) {
+    return await this.genderModel.findByPk(id)
   }
 
-  findAll() {
-    return `This action returns all genders`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} gender`;
-  }
-
-  update(id: number, updateGenderInput: UpdateGenderInput) {
-    return `This action updates a #${id} gender`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} gender`;
+  async findAll(): Promise<Genders[]> {
+    return await this.genderModel.findAll()
   }
 }

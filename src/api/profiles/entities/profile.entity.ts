@@ -10,6 +10,7 @@ import {
 } from 'sequelize-typescript';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import Accounts from 'src/api/accounts/entities/account.entity';
+import Genders from 'src/api/genders/entities/gender.entity';
 
 @ObjectType()
 @Table({ tableName: 'Profiles', timestamps: false })
@@ -59,4 +60,14 @@ export default class Profiles extends Model {
     @Field(() => Accounts)
     @BelongsTo(() => Accounts)
     account: Accounts;
+
+    @Field({ nullable: true })
+    @ForeignKey(() => Genders)
+    @AllowNull(true)
+    @Column
+    genderId: string;
+
+    @Field(() => Genders)
+    @BelongsTo(() => Genders)
+    gender: Genders;
 }

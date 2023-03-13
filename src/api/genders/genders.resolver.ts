@@ -1,35 +1,24 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, ResolveField, Parent } from '@nestjs/graphql';
 import { GendersService } from './genders.service';
-import { Gender } from './entities/gender.entity';
-import { CreateGenderInput } from './dto/create-gender.input';
-import { UpdateGenderInput } from './dto/update-gender.input';
+import Genders from './entities/gender.entity';
+import Profiles from '../profiles/entities/profile.entity';
+import { ProfilesService } from '../profiles/profiles.service';
 
-@Resolver(() => Gender)
+@Resolver(() => Genders)
 export class GendersResolver {
-  constructor(private readonly gendersService: GendersService) {}
+  constructor(
+    private readonly gendersService: GendersService,
+    private readonly profilesService: ProfilesService
+  ) { }
 
-  @Mutation(() => Gender)
-  createGender(@Args('createGenderInput') createGenderInput: CreateGenderInput) {
-    return this.gendersService.create(createGenderInput);
+  @Query(() => [Genders])
+  async genders() {
+    return await this.gendersService.findAll()
   }
 
-  @Query(() => [Gender], { name: 'genders' })
-  findAll() {
-    return this.gendersService.findAll();
-  }
-
-  @Query(() => Gender, { name: 'gender' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.gendersService.findOne(id);
-  }
-
-  @Mutation(() => Gender)
-  updateGender(@Args('updateGenderInput') updateGenderInput: UpdateGenderInput) {
-    return this.gendersService.update(updateGenderInput.id, updateGenderInput);
-  }
-
-  @Mutation(() => Gender)
-  removeGender(@Args('id', { type: () => Int }) id: number) {
-    return this.gendersService.remove(id);
+  @ResolveField('profiles', () => [Profiles])
+  async getProfiles(@Parent() gender: Genders): Promise<Profiles[]> {
+    const { id } = gender
+    return await this.profilesService.findAllByGenderId(id)
   }
 }

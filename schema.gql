@@ -8,6 +8,12 @@ type Hobbys {
   accounts: [Accounts!]!
 }
 
+type Genders {
+  id: ID!
+  name: String!
+  profiles: [Profiles!]!
+}
+
 type Profiles {
   id: ID!
   firstName: String
@@ -16,6 +22,8 @@ type Profiles {
   birthday: String
   accountId: String!
   account: Accounts!
+  genderId: String
+  gender: Genders!
 }
 
 type Accounts {
@@ -45,6 +53,7 @@ type Query {
   helloRole: String!
   account(id: String!): Accounts
   accounts: [Accounts!]!
+  genders: [Genders!]!
   hobbys: [Hobbys!]!
   helloAccountHobby: String!
 }
